@@ -1,0 +1,40 @@
+﻿@model IEnumerable<HardstopNet.Models.Carrinho>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataCriacao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataCriacao)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CarrinhoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CarrinhoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CarrinhoId })
+        </td>
+    </tr>
+}
+
+</table>
