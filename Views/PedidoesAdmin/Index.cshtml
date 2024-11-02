@@ -1,0 +1,58 @@
+﻿@model IEnumerable<HardstopNet.Models.Pedido>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Intern/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Carrinho.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pagamento.FormaPagamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HorarioPedido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusPedido)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Carrinho.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pagamento.FormaPagamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HorarioPedido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatusPedido)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PedidoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PedidoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PedidoId })
+        </td>
+    </tr>
+}
+
+</table>

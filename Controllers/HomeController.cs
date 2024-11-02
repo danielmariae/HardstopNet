@@ -18,6 +18,7 @@ namespace HardstopNet.Controllers
 
         public ActionResult Index()
         {
+            
             var produtos = _context.Produtos.ToList(); // Recupera todos os produtos
             return View(produtos);
         }

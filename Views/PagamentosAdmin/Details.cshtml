@@ -1,0 +1,51 @@
+﻿@model HardstopNet.Models.Pagamento
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Intern/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pagamento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FormaPagamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FormaPagamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataHoraPagamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataHoraPagamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorPagamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorPagamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValidacaoPagamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValidacaoPagamento)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PagamentoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<HardstopNet.Models.Pagamento>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Intern/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FormaPagamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataHoraPagamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValorPagamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValidacaoPagamento)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FormaPagamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataHoraPagamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValorPagamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValidacaoPagamento)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PagamentoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PagamentoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PagamentoId })
+        </td>
+    </tr>
+}
+
+</table>

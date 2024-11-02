@@ -1,0 +1,183 @@
+﻿@model IEnumerable<HardstopNet.Models.Carrinho>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+<meta name="generator" content="Hugo 0.122.0">
+<title>Checkout example · Bootstrap v5.3</title>
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+
+    .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+
+    .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+    }
+
+    .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+    }
+
+    .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+    }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+    .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var (--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+    }
+
+    .bd-mode-toggle {
+        z-index: 1500;
+    }
+
+        .bd-mode-toggle .dropdown-menu .active .bi {
+            display: block !important;
+        }
+</style>
+<!-- Custom styles for this template -->
+<link href="~/Content/checkout.css" rel="stylesheet">
+
+
+<h2>Pagamento</h2>
+
+<body class="bg-body-tertiary">
+    <div class="container">
+        <main>
+            <div class="row g-5">
+                @if (Model != null && Model.Any(c => c.ItensCarrinho.Count > 0))
+                {
+                    var carrinho = Model.FirstOrDefault(c => c.ItensCarrinho.Count > 0);
+                    <div class="col-md-5 col-lg-4 order-md-last">
+                        <div class="card cart-summary">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Sumário do Pedido</h5>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span>Subtotal</span>
+                                    <span>R$ @ViewBag.Subtotal.ToString("F2") </span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span>Forma de Pagamento</span>
+                                    <span id="selectedPaymentMethod">Nenhuma selecionada</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span>Envio</span>
+                                    <span>Grátis</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span>Impostos</span>
+                                    <span>Inclusos no preço</span>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between mb-4">
+                                    <strong>Total</strong>
+                                    <strong>R$ @ViewBag.Subtotal.ToString("F2") </strong>
+                                </div>
+                                <form action="@Url.Action("FinalizarCompra", "Pagamento")" method="post">
+                                    <input type="hidden" name="FormaPagamento" id="FormaPagamento" />
+                                    <button id="paymentButton" class="btn btn-primary w-100" type="submit" onclick="setPaymentMethod()" disabled>Confirme sua compra</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <p>Seu carrinho está vazio.</p>
+                }
+                <div class="col-md-7 col-lg-8">
+                    <div class="my-3">
+                        <div class="form-check">
+                            <input id="credit" name="paymentMethod" type="radio" class="form-check-input" value="Cartão de crédito" checked required>
+                            <label class="form-check-label" for="credit">Cartão de crédito</label>
+                        </div>
+                        <div class="form-check">
+                            <input id="debit" name="paymentMethod" type="radio" class="form-check-input" value="Cartão de débito" required>
+                            <label class="form-check-label" for="debit">Cartão de débito</label>
+                        </div>
+                        <div class="form-check">
+                            <input id="pix" name="paymentMethod" type="radio" class="form-check-input" value="Pix" required>
+                            <label class="form-check-label" for="pix">Pix</label>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+
+                    <button id="setPaymentButton" class="w-100 btn btn-primary btn-lg" type="button" onclick="setPaymentMethod()">Definir forma de pagamento</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="checkout.js"></script>
+
+        <script>
+            function setPaymentMethod()
+            {
+                    var selectedPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+                        document.getElementById('FormaPagamento').value = selectedPaymentMethod;
+                        document.getElementById('selectedPaymentMethod').innerText = selectedPaymentMethod;
+                        document.getElementById('setPaymentButton').disabled = true;
+                        document.getElementById('paymentButton').disabled = false;
+            }
+
+            document.querySelectorAll('input[name="paymentMethod"]').forEach(function (elem)
+            {
+                            elem.addEventListener('change', function () {
+                                document.getElementById('setPaymentButton').disabled = false;
+                                document.getElementById('paymentButton').disabled = true;
+                                document.getElementById('selectedPaymentMethod').innerText = "Nenhuma selecionada";
+                                document.getElementById('FormaPagamento').value = "";
+                            });
+            });
+    </script>
+</body>

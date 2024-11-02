@@ -5,12 +5,27 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class="nav-link" })
-        </li>
-        <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Fazer logoff</a></li>
-    </ul>
+<ul class="navbar-nav navbar-right">
+    <li>
+        <a href="@Url.Action("Index", "Favoritos")" class="nav-link">
+            <i class="bi bi-star-fill"></i>
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "Carrinho")" class="nav-link">
+            <i class="bi bi-cart"></i>
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "UserPedidos")" class="nav-link">
+            Meus pedidos
+        </a>
+    </li>
+    <li>
+        @Html.ActionLink("Gerenciar conta", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+    </li>
+    <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Fazer logoff</a></li>
+</ul>
     }
 }
 else

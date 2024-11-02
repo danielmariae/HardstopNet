@@ -29,25 +29,29 @@
             <!-- Cart Items -->
             <div class="card mb-4">
                 <div class="card-body">
+                    @if (Model == null | !Model.Any())
+                    {
+                        <div>Você não adicionou nenhum produto aos favoritos! Continue comprando conosco.</div>
+                    }
                     @foreach (var produto in Model)
                     {
-                            <div class="row cart-item mb-3">
-                                <div class="col-md-5">
-                                    <h5 class="card-title">@produto.Nome</h5>
-                                    <p class="text-muted">@produto.ProdutosCategorias.ElementAt(0).Categoria.Nome</p>
-                                </div>
-                            
-                                <div class="col-md-2 text-end">
-                                    <p class="fw-bold">R$ @produto.Preco</p>
-                                    <form action="@Url.Action("RemoverFavorito", "Favoritos")" method="post" style="display: inline;">
-                                        <input type="hidden" name="itemCarrinhoId" value="@produto.ProdutoId" />
-                                        <button class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
+                        <div class="row cart-item mb-3">
+                            <div class="col-md-5">
+                                <h5 class="card-title">@produto.Nome</h5>
+                                <p class="text-muted">@produto.ProdutosCategorias.ElementAt(0).Categoria.Nome</p>
                             </div>
-                        
+
+                            <div class="col-md-2 text-end">
+                                <p class="fw-bold">R$ @produto.Preco</p>
+                                <form action="@Url.Action("RemoverFavorito", "Favoritos")" method="post" style="display: inline;">
+                                    <input type="hidden" name="produtoId" value="@produto.ProdutoId" />
+                                    <button class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
                     }
                 </div>
             </div>

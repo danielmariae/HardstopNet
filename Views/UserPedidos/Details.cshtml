@@ -1,0 +1,53 @@
+﻿@model HardstopNet.Models.Pedido
+
+@{
+    ViewBag.Title = "Detalhes do Pedido";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhes do Pedido #@Model.PedidoId</h2>
+
+<div>
+    <h4>Pedido</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Data do Pedido</dt>
+        <dd>@Model.HorarioPedido.ToString("dd/MM/yyyy HH:mm")</dd>
+
+        <dt>Status</dt>
+        <dd>@Model.StatusPedido</dd>
+
+        <dt>Forma de Pagamento</dt>
+        <dd>@Model.Pagamento.FormaPagamento</dd>
+
+        <dt>Valor</dt>
+        <dd>R$ @Model.Pagamento.ValorPagamento</dd>
+    </dl>
+</div>
+<div>
+    <h4>Itens do Carrinho</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Preço Unitário</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Carrinho.ItensCarrinho)
+            {
+                <tr>
+                    <td>@item.Produto.Nome</td>
+                    <td>@item.QuantidadeProduto</td>
+                    <td>R$ @item.PrecoUnitario.ToString("F2")</td>
+                    <td>R$ @((item.PrecoUnitario * item.QuantidadeProduto).ToString("F2"))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    @Html.ActionLink("Voltar à lista", "Index", null, new { @class = "btn btn-default" })
+</div>

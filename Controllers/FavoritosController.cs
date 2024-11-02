@@ -1,9 +1,6 @@
 ﻿using HardstopNet.Models;
 using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace HardstopNet.Controllers
@@ -64,18 +61,22 @@ namespace HardstopNet.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            // Busca o objeto Favoritos do usuário
-            var favoritos = _context.Favoritos.FirstOrDefault(f => f.UserId == userId);
+            // Carrega o objeto Favoritos junto com a coleção FavoritoProdutos explicitamente
+            var favoritos = _context.Favoritos
+                .Include("FavoritoProdutos") // Inclua explicitamente a coleção de FavoritoProdutos
+                .FirstOrDefault(f => f.UserId == userId);
+
             if (favoritos == null)
             {
                 return HttpNotFound("Favoritos não encontrado para o usuário.");
             }
 
-            // Busca a relação FavoritoProduto específica para este produto
+            // Encontra a relação FavoritoProduto específica para o produto
             var favoritoProduto = favoritos.FavoritoProdutos.FirstOrDefault(fp => fp.ProdutoId == produtoId);
             if (favoritoProduto != null)
             {
-                favoritos.FavoritoProdutos.Remove(favoritoProduto);
+                // Remove o favoritoProduto do contexto para excluir o relacionamento da tabela intermediária
+                _context.Entry(favoritoProduto).State = System.Data.Entity.EntityState.Deleted;
                 _context.SaveChanges();
             }
 

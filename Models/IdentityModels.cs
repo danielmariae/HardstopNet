@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
@@ -42,5 +43,16 @@ namespace HardstopNet.Models
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<Favoritos> Favoritos { get; set; }
         public DbSet<Pagamento> Pagamentos { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Configurar propriedades DateTime para usar datetime2
+            modelBuilder.Properties<DateTime>()
+                .Configure(c => c.HasColumnType("datetime2"));
+
+            // Outras configurações...
+        }
     }
-}
+ }

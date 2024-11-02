@@ -176,12 +176,15 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarrinhoController.cs" />
-    <Compile Include="Controllers\CarrinhoesAdminController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\FavoritosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PagamentoController.cs" />
+    <Compile Include="Controllers\PagamentosAdminController.cs" />
+    <Compile Include="Controllers\PedidoesAdminController.cs" />
     <Compile Include="Controllers\ProdutoesController.cs" />
+    <Compile Include="Controllers\UserPedidosController.cs" />
     <Compile Include="Controllers\UsuarioComprasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -193,6 +196,10 @@
     <Compile Include="Migrations\202411020323101_UpdatesOnFavoritos.cs" />
     <Compile Include="Migrations\202411020323101_UpdatesOnFavoritos.Designer.cs">
       <DependentUpon>202411020323101_UpdatesOnFavoritos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411021453534_ChangeDateTime.cs" />
+    <Compile Include="Migrations\202411021453534_ChangeDateTime.Designer.cs">
+      <DependentUpon>202411021453534_ChangeDateTime.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -211,6 +218,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\checkout.css" />
     <Content Include="Content\dashboard.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -238,6 +246,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
+    <Content Include="Scripts\checkout.js" />
     <Content Include="Scripts\dashboard.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -295,16 +304,23 @@
     <Content Include="Views\Produtoes\Edit.cshtml" />
     <Content Include="Views\Produtoes\Index.cshtml" />
     <Content Include="Views\Carrinho\Index.cshtml" />
-    <Content Include="Views\CarrinhoesAdmin\Create.cshtml" />
-    <Content Include="Views\CarrinhoesAdmin\Delete.cshtml" />
-    <Content Include="Views\CarrinhoesAdmin\Details.cshtml" />
-    <Content Include="Views\CarrinhoesAdmin\Edit.cshtml" />
-    <Content Include="Views\CarrinhoesAdmin\Index.cshtml" />
     <Content Include="Views\Favoritos\Index.cshtml" />
+    <Content Include="Views\Pagamento\Index.cshtml" />
+    <Content Include="Views\UserPedidos\Index.cshtml" />
+    <Content Include="Views\UserPedidos\Details.cshtml" />
+    <Content Include="Views\PedidoesAdmin\Create.cshtml" />
+    <Content Include="Views\PedidoesAdmin\Delete.cshtml" />
+    <Content Include="Views\PedidoesAdmin\Details.cshtml" />
+    <Content Include="Views\PedidoesAdmin\Edit.cshtml" />
+    <Content Include="Views\PedidoesAdmin\Index.cshtml" />
+    <Content Include="Views\PagamentosAdmin\Create.cshtml" />
+    <Content Include="Views\PagamentosAdmin\Delete.cshtml" />
+    <Content Include="Views\PagamentosAdmin\Details.cshtml" />
+    <Content Include="Views\PagamentosAdmin\Edit.cshtml" />
+    <Content Include="Views\PagamentosAdmin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\UserOrders\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -339,6 +355,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202411020323101_UpdatesOnFavoritos.resx">
       <DependentUpon>202411020323101_UpdatesOnFavoritos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411021453534_ChangeDateTime.resx">
+      <DependentUpon>202411021453534_ChangeDateTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

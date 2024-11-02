@@ -1,0 +1,65 @@
+﻿@model HardstopNet.Models.Pedido
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Intern/_LayoutAdmin.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Pedido</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Carrinho.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Carrinho.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pagamento.FormaPagamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pagamento.FormaPagamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HorarioPedido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HorarioPedido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusPedido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusPedido)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

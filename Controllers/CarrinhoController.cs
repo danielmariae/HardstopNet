@@ -17,7 +17,28 @@ namespace HardstopNet.Controllers
         {
             _context = new ApplicationDbContext();
         }
+        public int ObterQuantidadeCarrinho()
+        {
+            if (User?.Identity == null || !User.Identity.IsAuthenticated)
+            {
+                Console.WriteLine("Retornou 0 do Identity!");
+                return 0;
+            }
 
+            var userId = User.Identity.GetUserId();
+            if (userId == null)
+            {
+                throw new InvalidOperationException("User ID is null.");
+            }
+
+            var carrinhos = _context.Carrinhos
+                .Where(c => c.User.Id == userId)
+                .Include("ItensCarrinho.Produto") // Inclui os itens do carrinho e produtos
+                .Count(); // Transforma em lista
+
+            Console.WriteLine("Retornou 0 não encontrando produtos!");
+            return carrinhos;
+        }
         public ActionResult Index()
         {
             var usuarioId = User.Identity.GetUserId();
@@ -125,42 +146,6 @@ namespace HardstopNet.Controllers
             }
 
             return RedirectToAction("Index");
-        }
-
-
-
-        // GET: Carrinho/FinalizarCompra
-        [Route("FinalizarCompra")]
-        public ActionResult FinalizarCompra()
-        {
-            var usuarioId = User.Identity.GetUserId();
-            var carrinho = _context.Carrinhos
-                .Include("ItensCarrinho.Produto") // Correção: usando string para especificar o caminho de navegação
-                .FirstOrDefault(c => c.User.Id == usuarioId);
-
-            if (carrinho == null || !carrinho.ItensCarrinho.Any())
-            {
-                return RedirectToAction("Index", "Carrinho");
-            }
-
-            var pedido = new Pedido
-            {
-                User = _context.Users.Find(usuarioId),
-                Carrinho = carrinho,
-                HorarioPedido = DateTime.Now,
-                StatusPedido = StatusPedido.Pendente,
-                Pagamento = new Pagamento
-                {
-                    ValorPagamento = carrinho.ItensCarrinho.Sum(ic => ic.QuantidadeProduto * ic.PrecoUnitario),
-                    FormaPagamento = "A definir",
-                    ValidacaoPagamento = false
-                }
-            };
-
-            _context.Pedidos.Add(pedido);
-            _context.SaveChanges();
-
-            return RedirectToAction("Detalhes", new { id = pedido.PedidoId });
         }
 
         protected override void Dispose(bool disposing)
