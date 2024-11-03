@@ -20,95 +20,99 @@
         border-radius: 10px;
     }
 </style>
-
-<div class="container py-5">
+@if (Model == null | !Model.Any())
+{
     <h1 class="mb-5">Carrinho</h1>
-    <div class="row">
-        <div class="col-lg-8">
-            <!-- Cart Items -->
-            <div class="card mb-4">
-                <div class="card-body">
-                    @foreach (var carrinho in Model)
-                    {
-                        foreach (var item in carrinho.ItensCarrinho)
+    <div>Seu carrinho está vazio! Faça mais compras e venha preencher esse carrinho.</div>
+}
+else
+{
+    <div class="container py-5">
+        <h1 class="mb-5">Carrinho</h1>
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Cart Items -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        @foreach (var carrinho in Model)
                         {
-                            <div class="row cart-item mb-3">
-                                <div class="col-md-5">
-                                    <h5 class="card-title">@item.Produto.Nome</h5>
-                                    <p class="text-muted">@item.Produto.ProdutosCategorias.ElementAt(0).Categoria.Nome</p>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="input-group">
-                                        <form action="@Url.Action("DiminuirQuantidade", "Carrinho")" method="post" style="display: inline;">
+                            foreach (var item in carrinho.ItensCarrinho)
+                            {
+                                <div class="row cart-item mb-3">
+                                    <div class="col-md-5">
+                                        <h5 class="card-title">@item.Produto.Nome</h5>
+                                        <p class="text-muted">@item.Produto.ProdutosCategorias.ElementAt(0).Categoria.Nome</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <form action="@Url.Action("DiminuirQuantidade", "Carrinho")" method="post" style="display: inline;">
+                                                <input type="hidden" name="itemCarrinhoId" value="@item.ItemCarrinhoId" />
+                                                <button class="btn btn-outline-secondary btn-sm" type="submit">-</button>
+                                            </form>
+                                            <input style="max-width:100px" type="text" class="form-control form-control-sm text-center quantity-input" value="@item.QuantidadeProduto" disabled>
+                                            <form action="@Url.Action("AumentarQuantidade", "Carrinho")" method="post" style="display: inline;">
+                                                <input type="hidden" name="itemCarrinhoId" value="@item.ItemCarrinhoId" />
+                                                <button class="btn btn-outline-secondary btn-sm" type="submit">+</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-end">
+                                        <p class="fw-bold">R$ @(item.Produto.Preco * item.QuantidadeProduto)</p>
+                                        <form action="@Url.Action("RemoverDoCarrinho", "Carrinho")" method="post" style="display: inline;">
                                             <input type="hidden" name="itemCarrinhoId" value="@item.ItemCarrinhoId" />
-                                            <button class="btn btn-outline-secondary btn-sm" type="submit">-</button>
-                                        </form>
-                                        <input style="max-width:100px" type="text" class="form-control form-control-sm text-center quantity-input" value="@item.QuantidadeProduto" disabled>
-                                        <form action="@Url.Action("AumentarQuantidade", "Carrinho")" method="post" style="display: inline;">
-                                            <input type="hidden" name="itemCarrinhoId" value="@item.ItemCarrinhoId" />
-                                            <button class="btn btn-outline-secondary btn-sm" type="submit">+</button>
+                                            <button class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
-                                <div class="col-md-2 text-end">
-                                    <p class="fw-bold">R$ @(item.Produto.Preco * item.QuantidadeProduto)</p>
-                                    <form action="@Url.Action("RemoverDoCarrinho", "Carrinho")" method="post" style="display: inline;">
-                                        <input type="hidden" name="itemCarrinhoId" value="@item.ItemCarrinhoId" />
-                                        <button class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
+                            }
+                            if (carrinho.ItensCarrinho.Count <= 0)
+                            {
+                                <div>Seu carrinho está vazio! Faça mais compras e venha preencher esse carrinho.</div>
+                            }
                         }
-                        if (carrinho.ItensCarrinho.Count <= 0)
-                        {
-                            <div>Seu carrinho está vazio! Faça mais compras e venha preencher esse carrinho.</div>
-                        }
-                    }@if(Model is null) {
-                    <div>Seu carrinho está vazio! Faça mais compras e venha preencher esse carrinho.</div>
-                    }
-
+                    </div>
+                </div>
+                <!-- Continue Shopping Button -->
+                <div class="text-start mb-4">
+                    <a href="/" class="btn btn-outline-primary">
+                        <i class="bi bi-arrow-left me-2"></i>Continue comprando
+                    </a>
                 </div>
             </div>
-            <!-- Continue Shopping Button -->
-            <div class="text-start mb-4">
-                <a href="/" class="btn btn-outline-primary">
-                    <i class="bi bi-arrow-left me-2"></i>Continue comprando
-                </a>
+            <div class="col-lg-4">
+                <!-- Cart Summary -->
+                @foreach (var carrinho in Model)
+                {
+                    if (carrinho.ItensCarrinho.Count > 0)
+                    {
+                        <div class="card cart-summary">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Sumário do Pedido</h5>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span>Subtotal</span>
+                                    <span>R$ @ViewBag.Subtotal.ToString("F2") </span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span>Envio</span>
+                                    <span>Grátis</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span>Impostos</span>
+                                    <span>Inclusos no preço</span>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between mb-4">
+                                    <strong>Total</strong>
+                                    <strong>R$ @ViewBag.Subtotal.ToString("F2") </strong>
+                                </div>
+                                <a class="btn btn-primary w-100" href="@Url.Action("Index", "Pagamento")">Faça seu pagamento</a>
+                            </div>
+                        </div>
+                    }
+                }
             </div>
         </div>
-        <div class="col-lg-4">
-            <!-- Cart Summary -->
-            @foreach (var carrinho in Model)
-            {
-                if (carrinho.ItensCarrinho.Count > 0)
-                {
-                    <div class="card cart-summary">
-                        <div class="card-body">
-                            <h5 class="card-title mb-4">Sumário do Pedido</h5>
-                            <div class="d-flex justify-content-between mb-3">
-                                <span>Subtotal</span>
-                                <span>R$ @ViewBag.Subtotal.ToString("F2") </span>
-                            </div>
-                            <div class="d-flex justify-content-between mb-3">
-                                <span>Envio</span>
-                                <span>Grátis</span>
-                            </div>
-                            <div class="d-flex justify-content-between mb-3">
-                                <span>Impostos</span>
-                                <span>Inclusos no preço</span>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-between mb-4">
-                                <strong>Total</strong>
-                                <strong>R$ @ViewBag.Subtotal.ToString("F2") </strong>
-                            </div>
-                            <button class="btn btn-primary w-100"><a class="text-white" href="@Url.Action("Index", "Pagamento")">Faça seu pagamento</a></button>
-                        </div>
-                    </div>
-                }
-            }
-        </div>
     </div>
-</div>
+}

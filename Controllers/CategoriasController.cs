@@ -11,7 +11,6 @@ using HardstopNet.Models;
 namespace HardstopNet.Controllers
 {
     [Authorize]
-    [RoutePrefix("UsuarioCompras")]
     public class CategoriasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

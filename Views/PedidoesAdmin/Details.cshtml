@@ -53,6 +53,30 @@
 
     </dl>
 </div>
+<div>
+    <h4>Itens do Carrinho</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Preço Unitário</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Carrinho.ItensCarrinho)
+            {
+                <tr>
+                    <td>@item.Produto.Nome</td>
+                    <td>@item.QuantidadeProduto</td>
+                    <td>R$ @item.PrecoUnitario.ToString("F2")</td>
+                    <td>R$ @((item.PrecoUnitario * item.QuantidadeProduto).ToString("F2"))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.PedidoId }) |
     @Html.ActionLink("Back to List", "Index")

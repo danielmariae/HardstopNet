@@ -37,38 +37,47 @@ namespace HardstopNet.Controllers
 
             // GET: Pagamento/FinalizarCompra
             [Route("FinalizarCompra")]
-            public ActionResult FinalizarCompra(String FormaPagamento)
+        public ActionResult FinalizarCompra(String FormaPagamento)
+        {
+            var usuarioId = User.Identity.GetUserId();
+            var carrinho = _context.Carrinhos
+                .Include("ItensCarrinho.Produto")
+                .FirstOrDefault(c => c.User.Id == usuarioId);
+
+            if (carrinho == null || !carrinho.ItensCarrinho.Any())
             {
-                var usuarioId = User.Identity.GetUserId();
-                var carrinho = _context.Carrinhos
-                    .Include("ItensCarrinho.Produto")
-                    .FirstOrDefault(c => c.User.Id == usuarioId);
+                return RedirectToAction("Index", "Carrinho");
+            }
 
-                if (carrinho == null || !carrinho.ItensCarrinho.Any())
-                {
-                    return RedirectToAction("Index", "Carrinho");
-                }
-
-                var horaPagamento = DateTime.Now;
-                horaPagamento = new DateTime(horaPagamento.Year, horaPagamento.Month, horaPagamento.Day, horaPagamento.Hour, horaPagamento.Minute, horaPagamento.Second);
-
+            var horaPagamento = DateTime.Now;
 
             var pedido = new Pedido
+            {
+                User = _context.Users.Find(usuarioId),
+                Carrinho = carrinho,
+                HorarioPedido = horaPagamento,
+                StatusPedido = StatusPedido.Pendente,
+                Pagamento = new Pagamento
                 {
-                    User = _context.Users.Find(usuarioId),
-                    Carrinho = carrinho,
-                    HorarioPedido = horaPagamento,
-                    StatusPedido = StatusPedido.Pendente,
-                    Pagamento = new Pagamento
-                    {
-                        ValorPagamento = carrinho.ItensCarrinho.Sum(ic => ic.QuantidadeProduto * ic.PrecoUnitario),
-                        FormaPagamento = FormaPagamento,
-                        ValidacaoPagamento = false
-                    }
-                };
+                    ValorPagamento = carrinho.ItensCarrinho.Sum(ic => ic.QuantidadeProduto * ic.PrecoUnitario),
+                    FormaPagamento = FormaPagamento,
+                    ValidacaoPagamento = false,
+                    DataHoraPagamento = DateTime.Now
+                }
+            };
 
-                _context.Pedidos.Add(pedido);
-                _context.SaveChanges();
+            // Reduzir o estoque de cada produto
+            foreach (var item in carrinho.ItensCarrinho)
+            {
+                var produto = item.Produto;
+                if (produto != null)
+                {
+                    produto.Estoque -= item.QuantidadeProduto;
+                }
+            }
+
+            _context.Pedidos.Add(pedido);
+            _context.SaveChanges();
 
             return RedirectToAction("Details", "UserPedidos", new { id = pedido.PedidoId });
         }

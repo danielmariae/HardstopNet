@@ -7,28 +7,35 @@
 
 <h2>Meus Pedidos</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID do Pedido</th>
-            <th>Data</th>
-            <th>Status</th>
-            <th>Valor</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var pedido in Model)
-        {
+@if (Model == null | !Model.Any())
+{
+<p>Você ainda não fez pedidos. Continue comprando conosco!</p>
+}
+else
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td>@pedido.PedidoId</td>
-                <td>@pedido.HorarioPedido.ToString("dd/MM/yyyy HH:mm")</td>
-                <td>@pedido.StatusPedido</td>
-                <td>R$ @pedido.Pagamento.ValorPagamento.ToString("F2")</td>
-                <td>
-                    @Html.ActionLink("Detalhes", "Details", new { id = pedido.PedidoId }, new { @class = "btn btn-primary" })
-                </td>
+                <th>ID do Pedido</th>
+                <th>Data</th>
+                <th>Status</th>
+                <th>Valor</th>
+                <th>Ações</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var pedido in Model)
+            {
+                <tr>
+                    <td>@pedido.PedidoId</td>
+                    <td>@pedido.HorarioPedido.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@pedido.StatusPedido</td>
+                    <td>R$ @pedido.Pagamento.ValorPagamento.ToString("F2")</td>
+                    <td>
+                        @Html.ActionLink("Detalhes", "Details", new { id = pedido.PedidoId }, new { @class = "btn btn-primary" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
