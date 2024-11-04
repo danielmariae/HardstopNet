@@ -1,84 +1,98 @@
 # Sistema de E-commerce - HardstopNet
 
-## DescriÁ„o
+## Descri√ß√£o
 
-O **HardstopNet** È um sistema de e-commerce desenvolvido em **ASP.NET Framework 4.8.1** com o objetivo de permitir a compra de produtos online. Os usu·rios podem navegar pelo cat·logo de produtos, adicionar itens ao carrinho, realizar o checkout e efetuar o pagamento. AlÈm disso, os usu·rios podem gerenciar uma lista de produtos favoritos e acompanhar o status dos seus pedidos.
+O **HardstopNet** √© um sistema de e-commerce desenvolvido em **ASP.NET Framework 4.8.1** com o objetivo de permitir a compra de produtos online. Os usu√°rios podem navegar pelo cat√°logo de produtos, adicionar itens ao carrinho, realizar o checkout e efetuar o pagamento. Al√©m disso, os usu√°rios podem gerenciar uma lista de produtos favoritos e acompanhar o status dos seus pedidos.
 
-O sistema utiliza o **ASP.NET Identity** para gerenciar a autenticaÁ„o e o controle de acesso dos usu·rios, garantindo que cada usu·rio tenha acesso apenas aos seus prÛprios pedidos, carrinho e favoritos. 
+O sistema utiliza o **ASP.NET Identity** para gerenciar a autentica√ß√£o e o controle de acesso dos usu√°rios, garantindo que cada usu√°rio tenha acesso apenas aos seus pr√≥prios pedidos, carrinho e favoritos. 
 
 ## Principais Entidades e Relacionamentos
 
-- **Produto**: Representa um produto disponÌvel para venda no sistema. Cada produto possui atributos como nome, descriÁ„o, preÁo e quantidade em estoque. Um produto pode pertencer a v·rias categorias.
+- **Produto**: Representa um produto dispon√≠vel para venda no sistema. Cada produto possui atributos como nome, descri√ß√£o, pre√ßo e quantidade em estoque. Um produto pode pertencer a v√°rias categorias.
 
-- **Categoria**: Define uma categoria para os produtos, permitindo organiz·-los em grupos. A relaÁ„o entre `Produto` e `Categoria` È muitos-para-muitos.
+- **Categoria**: Define uma categoria para os produtos, permitindo organiz√°-los em grupos. A rela√ß√£o entre `Produto` e `Categoria` √© muitos-para-muitos.
 
-- **Carrinho**: Associado a um ˙nico `Usuario`, o carrinho armazena os produtos selecionados para compra antes do pedido ser finalizado. Cada carrinho pode conter m˙ltiplos `ItemCarrinho`.
+- **Carrinho**: Associado a um √∫nico `Usuario`, o carrinho armazena os produtos selecionados para compra antes do pedido ser finalizado. Cada carrinho pode conter m√∫ltiplos `ItemCarrinho`.
 
-- **ItemCarrinho**: Representa um item no carrinho de compras, associando um `Produto` especÌfico com sua quantidade e preÁo unit·rio no momento da adiÁ„o.
+- **ItemCarrinho**: Representa um item no carrinho de compras, associando um `Produto` espec√≠fico com sua quantidade e pre√ßo unit√°rio no momento da adi√ß√£o.
 
-- **Pedido**: ContÈm as informaÁıes de uma compra finalizada, incluindo a data/hora do pedido e seu status. O status pode ser "Pendente", "Processando", "Enviado", "ConcluÌdo" ou "Cancelado".
+- **Pedido**: Cont√©m as informa√ß√µes de uma compra finalizada, incluindo a data/hora do pedido e seu status. O status pode ser "Pendente", "Processando", "Enviado", "Conclu√≠do" ou "Cancelado".
 
-- **StatusPedido** (EnumeraÁ„o): Define os diferentes estados que um pedido pode ter, permitindo o acompanhamento do progresso do pedido pelo usu·rio.
+- **StatusPedido** (Enumera√ß√£o): Define os diferentes estados que um pedido pode ter, permitindo o acompanhamento do progresso do pedido pelo usu√°rio.
 
-- **Usuario**: Armazena os dados dos usu·rios, como nome, e-mail e senha. Cada usu·rio possui um ˙nico carrinho, uma lista de favoritos e pode ter m˙ltiplos pedidos.
+- **Usuario**: Armazena os dados dos usu√°rios, como nome, e-mail e senha. Cada usu√°rio possui um √∫nico carrinho, uma lista de favoritos e pode ter m√∫ltiplos pedidos.
 
-- **Favoritos**: Permite que o usu·rio marque produtos como favoritos para f·cil acesso no futuro. Cada `Usuario` possui uma lista de produtos favoritos.
+- **Favoritos**: Permite que o usu√°rio marque produtos como favoritos para f√°cil acesso no futuro. Cada `Usuario` possui uma lista de produtos favoritos.
 
-- **Pagamento**: ContÈm informaÁıes sobre o pagamento do pedido, incluindo o valor total, a forma de pagamento e o status de confirmaÁ„o do pagamento.
+- **Pagamento**: Cont√©m informa√ß√µes sobre o pagamento do pedido, incluindo o valor total, a forma de pagamento e o status de confirma√ß√£o do pagamento.
 
 ### Diagrama de Relacionamentos
 
-- `Usuario` e `Carrinho`: Um usu·rio possui um carrinho ˙nico (`1:1`).
-- `Carrinho` e `ItemCarrinho`: Um carrinho pode ter m˙ltiplos itens (`1:N`).
-- `Produto` e `ItemCarrinho`: Cada item do carrinho est· associado a um ˙nico produto (`1:N`).
-- `Produto` e `Categoria`: Produtos podem pertencer a v·rias categorias e vice-versa (`N:N`).
-- `Usuario` e `Pedido`: Um usu·rio pode ter m˙ltiplos pedidos (`1:N`).
-- `Pedido` e `StatusPedido`: Cada pedido possui um status ˙nico (`1:1`).
+- `Usuario` e `Carrinho`: Um usu√°rio possui um carrinho √∫nico (`1:1`).
+- `Carrinho` e `ItemCarrinho`: Um carrinho pode ter m√∫ltiplos itens (`1:N`).
+- `Produto` e `ItemCarrinho`: Cada item do carrinho est√° associado a um √∫nico produto (`1:N`).
+- `Produto` e `Categoria`: Produtos podem pertencer a v√°rias categorias e vice-versa (`N:N`).
+- `Usuario` e `Pedido`: Um usu√°rio pode ter m√∫ltiplos pedidos (`1:N`).
+- `Pedido` e `StatusPedido`: Cada pedido possui um status √∫nico (`1:1`).
 - `Pedido` e `Pagamento`: Cada pedido possui um pagamento associado (`1:1`).
-- `Usuario` e `Favoritos`: Um usu·rio possui uma lista de favoritos (`1:1`).
-- `Favoritos` e `Produto`: Um favorito pode ter m˙ltiplos produtos e um produto pode ser marcado como favorito por m˙ltiplos usu·rios (`N:N`).
+- `Usuario` e `Favoritos`: Um usu√°rio possui uma lista de favoritos (`1:1`).
+- `Favoritos` e `Produto`: Um favorito pode ter m√∫ltiplos produtos e um produto pode ser marcado como favorito por m√∫ltiplos usu√°rios (`N:N`).
 
-## PrÈ-requisitos
+## Pr√©-requisitos
 
-Para executar o sistema, È necess·rio:
+Para executar o sistema, √© necess√°rio:
 
-1. **.NET Framework 4.8.1** - O sistema foi desenvolvido em **ASP.NET Framework 4.8.1**, portanto, essa vers„o ou superior È necess·ria.
-2. **SQL Server** - Um banco de dados relacional para armazenar as informaÁıes do sistema, como dados dos usu·rios, produtos, pedidos e pagamentos.
-3. **Entity Framework** - Para mapear as classes C# para o banco de dados, simplificando o acesso e manipulaÁ„o dos dados.
-4. **ASP.NET Identity** - Para gerenciar a autenticaÁ„o e autorizaÁ„o de usu·rios.
-5. **Visual Studio** (recomendado) - Para desenvolvimento e execuÁ„o da aplicaÁ„o.
+1. **.NET Framework 4.8.1** - O sistema foi desenvolvido em **ASP.NET Framework 4.8.1**, portanto, essa vers√£o ou superior √© necess√°ria.
+2. **SQL Server** - Um banco de dados relacional para armazenar as informa√ß√µes do sistema, como dados dos usu√°rios, produtos, pedidos e pagamentos.
+3. **Entity Framework** - Para mapear as classes C# para o banco de dados, simplificando o acesso e manipula√ß√£o dos dados.
+4. **ASP.NET Identity** - Para gerenciar a autentica√ß√£o e autoriza√ß√£o de usu√°rios.
+5. **Visual Studio** (recomendado) - Para desenvolvimento e execu√ß√£o da aplica√ß√£o.
 
-## ExecuÁ„o
+## Execu√ß√£o
 
-1. **Clone o repositÛrio** e abra o projeto no **Visual Studio**.
-2. **Configure a conex„o com o banco de dados** no arquivo de configuraÁ„o (`Web.config`), ajustando a `connectionString`.
-3. **Realize as migraÁıes** para criar as tabelas no banco de dados com o Entity Framework (utilize `Enable-Migrations` e `Update-Database` no Console do Gerenciador de Pacotes).
-4. **Execute o projeto** no Visual Studio (`F5`) para iniciar o servidor de desenvolvimento e acessar a aplicaÁ„o pelo navegador.
+1. **Clone o reposit√≥rio** e abra o projeto no **Visual Studio**.
+2. **Configure a conex√£o com o banco de dados** no arquivo de configura√ß√£o (`Web.config`), ajustando a `connectionString`.
+3. **Realize as migra√ß√µes** para criar as tabelas no banco de dados com o Entity Framework (utilize `Enable-Migrations` e `Update-Database` no Console do Gerenciador de Pacotes).
+4. **Execute o projeto** no Visual Studio (`F5`) para iniciar o servidor de desenvolvimento e acessar a aplica√ß√£o pelo navegador.
 
-O sistema estar· disponÌvel no navegador, onde vocÍ poder· registrar usu·rios, adicionar produtos ao carrinho, realizar pagamentos e visualizar o status dos pedidos.
+O sistema estar√° dispon√≠vel no navegador, onde voc√™ poder√° registrar usu√°rios, adicionar produtos ao carrinho, realizar pagamentos e visualizar o status dos pedidos.
 
-## OBS: N„o se esqueÁa de adicionar as chaves de autenticaÁ„o do Email. 
+--
+Rotas do aplicativo:
+/Account (todos)
+/Carrinho (para fazer compras)
+/Pagamento (para pagar a compra)
+/CategoriasAdmin (para adm's do sistema criarem categorias)
+/PagamentosAdmin (para adm's do sistema confirmarem pagamentos)
+/PedidoesAdmin (para adm's do sistema verem pedidos)
+/ProdutoesAdmin (para adm's do sistema verem produtos)
+
+ATEN√á√ÉO: Foi implementada a confirma√ß√£o por email, e para isso, √© necess√°rio configurar o EMAIL.
+
+Tudo foi criado pelo EF na abordagem Code-First.
+
+## OBS: N√£o se esque√ßa de adicionar as chaves de autentica√ß√£o do Email. 
 ### Passo a Passo para Configurar SMTP com `AddKeys`
 
 1. **Abra o arquivo `Web.config`** na raiz do seu projeto.
 
-2. **Encontre** ou **adicione** a seÁ„o `<appSettings>` para armazenar as configuraÁıes SMTP.
+2. **Encontre** ou **adicione** a se√ß√£o `<appSettings>` para armazenar as configura√ß√µes SMTP.
 
-3. **Insira as configuraÁıes de SMTP** como chaves:
+3. **Insira as configura√ß√µes de SMTP** como chaves:
 
 ```xml
 <configuration>
-  <!-- Outras configuraÁıes do Web.config -->
+  <!-- Outras configura√ß√µes do Web.config -->
 
   <appSettings>
-    <!-- ConfiguraÁıes do SMTP -->
-    <add key="SmtpHost" value="smtp.seuprovedor.com" />       <!-- EndereÁo do servidor SMTP -->
+    <!-- Configura√ß√µes do SMTP -->
+    <add key="SmtpHost" value="smtp.seuprovedor.com" />       <!-- Endere√ßo do servidor SMTP -->
     <add key="SmtpPort" value="587" />                         <!-- Porta do servidor SMTP (ex: 587 para TLS) -->
-    <add key="SmtpUser" value="seuemail@dominio.com" />        <!-- Seu e-mail para autenticaÁ„o -->
+    <add key="SmtpUser" value="seuemail@dominio.com" />        <!-- Seu e-mail para autentica√ß√£o -->
     <add key="SmtpPassword" value="suaSenhaSegura" />          <!-- Senha do seu e-mail -->
-    <add key="SmtpFromAddress" value="seuemail@dominio.com" /> <!-- EndereÁo "De" para os e-mails -->
+    <add key="SmtpFromAddress" value="seuemail@dominio.com" /> <!-- Endere√ßo "De" para os e-mails -->
   </appSettings>
 
-  <!-- Outras configuraÁıes do Web.config -->
+  <!-- Outras configura√ß√µes do Web.config -->
 </configuration>
 ```
