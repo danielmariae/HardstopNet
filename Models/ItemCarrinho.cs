@@ -12,6 +12,9 @@ namespace HardstopNet.Models
     {
         [Key]
         public int ItemCarrinhoId { get; set; }
+
+        [Required]
+        // [Range]
         public int QuantidadeProduto { get; set; }
         public decimal PrecoUnitario { get; set; }
 

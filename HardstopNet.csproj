@@ -201,6 +201,10 @@
     <Compile Include="Migrations\202411021453534_ChangeDateTime.Designer.cs">
       <DependentUpon>202411021453534_ChangeDateTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202411040151385_UpdatesA1FinalDB.cs" />
+    <Compile Include="Migrations\202411040151385_UpdatesA1FinalDB.Designer.cs">
+      <DependentUpon>202411040151385_UpdatesA1FinalDB.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Carrinho.cs" />
@@ -245,6 +249,7 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="README.md" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\checkout.js" />
     <Content Include="Scripts\dashboard.js" />
@@ -358,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202411021453534_ChangeDateTime.resx">
       <DependentUpon>202411021453534_ChangeDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411040151385_UpdatesA1FinalDB.resx">
+      <DependentUpon>202411040151385_UpdatesA1FinalDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

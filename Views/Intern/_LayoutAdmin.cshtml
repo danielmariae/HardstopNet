@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/dashboard.css">
 </head>
+@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+{
+@Html.AntiForgeryToken()
+
 <body>
     <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
         <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
@@ -171,15 +175,8 @@
 
                         <ul class="nav flex-column mb-auto">
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="#">
-                                    <svg class="bi"><use xlink:href="#gear-wide-connected" /></svg>
-                                    Settings
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="#">
-                                    <svg class="bi"><use xlink:href="#door-closed" /></svg>
-                                    Sign out
+                                <a class="nav-link d-flex align-items-center gap-2" href="javascript:document.getElementById('logoutForm').submit()">
+                                    Logout
                                 </a>
                             </li>
                         </ul>
@@ -200,4 +197,5 @@
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     <script src="~/Scripts/dashboard.js"></script>
 </body>
+}
 </html>

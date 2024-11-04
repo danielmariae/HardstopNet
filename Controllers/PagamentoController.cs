@@ -35,8 +35,8 @@ namespace HardstopNet.Controllers
             return View(carrinhos); // Passa a lista para a view
         }
 
-            // GET: Pagamento/FinalizarCompra
-            [Route("FinalizarCompra")]
+        // GET: Pagamento/FinalizarCompra
+        [Route("FinalizarCompra")]
         public ActionResult FinalizarCompra(String FormaPagamento)
         {
             var usuarioId = User.Identity.GetUserId();
@@ -47,6 +47,17 @@ namespace HardstopNet.Controllers
             if (carrinho == null || !carrinho.ItensCarrinho.Any())
             {
                 return RedirectToAction("Index", "Carrinho");
+            }
+
+            // Validar se o estoque é suficiente para cada item
+            foreach (var item in carrinho.ItensCarrinho)
+            {
+                var produto = item.Produto;
+                if (produto == null || produto.Estoque < item.QuantidadeProduto)
+                {
+                    ModelState.AddModelError("", $"Estoque insuficiente para o produto {produto?.Nome ?? "desconhecido"}.");
+                    return View("Index", carrinho);
+                }
             }
 
             var horaPagamento = DateTime.Now;
@@ -81,5 +92,6 @@ namespace HardstopNet.Controllers
 
             return RedirectToAction("Details", "UserPedidos", new { id = pedido.PedidoId });
         }
+
     }
 }

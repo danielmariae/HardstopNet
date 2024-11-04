@@ -11,10 +11,18 @@ namespace HardstopNet.Models
     {
         [Key]
         public int PagamentoId { get; set; }
+        
+        [Required]
+        [StringLength(50)]
         public string FormaPagamento { get; set; }
 
+        [Required]
         public DateTime DataHoraPagamento { get; set; }
+
+        [Required]
+        [Range(0.01, Double.MaxValue, ErrorMessage = "O valor do pagamento deve ser positivo.")]
         public decimal ValorPagamento { get; set; }
+
         public bool ValidacaoPagamento {  get; set; }
     }
 }

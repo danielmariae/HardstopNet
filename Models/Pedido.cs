@@ -12,7 +12,11 @@ namespace HardstopNet.Models
     {
         [Key]
         public int PedidoId { get; set; }
+
+        [Required]
         public DateTime HorarioPedido { get; set; }
+        
+        [Required]
         public StatusPedido StatusPedido { get; set; }
 
         [ForeignKey("Carrinho")]
