@@ -10,6 +10,7 @@ using HardstopNet.Models;
 
 namespace HardstopNet.Controllers
 {
+    [Authorize(Roles = "Funcionario")]
     public class PagamentosAdminController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

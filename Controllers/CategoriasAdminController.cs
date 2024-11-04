@@ -10,18 +10,18 @@ using HardstopNet.Models;
 
 namespace HardstopNet.Controllers
 {
-    [Authorize]
-    public class CategoriasController : Controller
+    [Authorize(Roles = "Funcionario")]
+    public class CategoriasAdminController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Categorias
+        // GET: CategoriasAdmin
         public ActionResult Index()
         {
             return View(db.Categorias.ToList());
         }
 
-        // GET: Categorias/Details/5
+        // GET: CategoriasAdmin/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,13 +36,13 @@ namespace HardstopNet.Controllers
             return View(categoria);
         }
 
-        // GET: Categorias/Create
+        // GET: CategoriasAdmin/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Categorias/Create
+        // POST: CategoriasAdmin/Create
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -59,7 +59,7 @@ namespace HardstopNet.Controllers
             return View(categoria);
         }
 
-        // GET: Categorias/Edit/5
+        // GET: CategoriasAdmin/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -74,7 +74,7 @@ namespace HardstopNet.Controllers
             return View(categoria);
         }
 
-        // POST: Categorias/Edit/5
+        // POST: CategoriasAdmin/Edit/5
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -90,7 +90,7 @@ namespace HardstopNet.Controllers
             return View(categoria);
         }
 
-        // GET: Categorias/Delete/5
+        // GET: CategoriasAdmin/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -105,7 +105,7 @@ namespace HardstopNet.Controllers
             return View(categoria);
         }
 
-        // POST: Categorias/Delete/5
+        // POST: CategoriasAdmin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

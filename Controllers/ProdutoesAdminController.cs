@@ -10,18 +10,19 @@ using HardstopNet.Models;
 
 namespace HardstopNet.Controllers
 {
-    public class ProdutoesController : Controller
+    [Authorize(Roles = "Funcionario")]
+    public class ProdutoesAdminController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Produtoes
+        // GET: ProdutoesAdmin
         public ActionResult Index()
         {
             var produtos = db.Produtos.Include(p => p.ProdutosCategorias.Select(pc => pc.Categoria)).ToList();
             return View(db.Produtos.ToList());
         }
 
-        // GET: Produtoes/Details/5
+        // GET: ProdutoesAdmin/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,14 +38,14 @@ namespace HardstopNet.Controllers
             return View(produto);
         }
 
-        // GET: Produtoes/Create
+        // GET: ProdutoesAdmin/Create
         public ActionResult Create()
         {
             ViewBag.CategoriaIds = new MultiSelectList(db.Categorias, "CategoriaId", "Nome");
             return View();
         }
 
-        // POST: Produtoes/Create
+        // POST: ProdutoesAdmin/Create
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -76,7 +77,7 @@ namespace HardstopNet.Controllers
             return View(produto);
         }
 
-        // GET: Produtoes/Edit/5
+        // GET: ProdutoesAdmin/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -93,7 +94,7 @@ namespace HardstopNet.Controllers
             return View(produto);
         }
 
-        // POST: Produtoes/Edit/5
+        // POST: ProdutoesAdmin/Edit/5
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -132,7 +133,7 @@ namespace HardstopNet.Controllers
             return View(produto);
         }
 
-        // GET: Produtoes/Delete/5
+        // GET: ProdutoesAdmin/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -147,7 +148,7 @@ namespace HardstopNet.Controllers
             return View(produto);
         }
 
-        // POST: Produtoes/Delete/5
+        // POST: ProdutoesAdmin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

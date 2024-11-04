@@ -10,18 +10,19 @@ using HardstopNet.Models;
 
 namespace HardstopNet.Controllers
 {
+    [Authorize(Roles = "Funcionario")]
     public class PedidoesAdminController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Pedidoes
+        // GET: PedidoesAdmin
         public ActionResult Index()
         {
             var pedidoes = db.Pedidos.Include(p => p.Carrinho).Include(p => p.Pagamento).Include(p => p.User);
             return View(pedidoes.ToList());
         }
 
-        // GET: Pedidoes/Details/5
+        // GET: PedidoesAdmin/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,7 +37,7 @@ namespace HardstopNet.Controllers
             return View(pedido);
         }
 
-        // GET: Pedidoes/Create
+        // GET: PedidoesAdmin/Create
         public ActionResult Create()
         {
             ViewBag.CarrinhoId = new SelectList(db.Carrinhos, "CarrinhoId", "UserId");
@@ -45,7 +46,7 @@ namespace HardstopNet.Controllers
             return View();
         }
 
-        // POST: Pedidoes/Create
+        // POST: PedidoesAdmin/Create
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -65,7 +66,7 @@ namespace HardstopNet.Controllers
             return View(pedido);
         }
 
-        // GET: Pedidoes/Edit/5
+        // GET: PedidoesAdmin/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,7 +84,7 @@ namespace HardstopNet.Controllers
             return View(pedido);
         }
 
-        // POST: Pedidoes/Edit/5
+        // POST: PedidoesAdmin/Edit/5
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -102,7 +103,7 @@ namespace HardstopNet.Controllers
             return View(pedido);
         }
 
-        // GET: Pedidoes/Delete/5
+        // GET: PedidoesAdmin/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -117,7 +118,7 @@ namespace HardstopNet.Controllers
             return View(pedido);
         }
 
-        // POST: Pedidoes/Delete/5
+        // POST: PedidoesAdmin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

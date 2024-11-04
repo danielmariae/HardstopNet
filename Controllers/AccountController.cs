@@ -160,8 +160,8 @@ namespace HardstopNet.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    // Atribuir o novo usuário à role de Funcionario
-                    await UserManager.AddToRoleAsync(user.Id, "Funcionario");
+                    // Atribuir o novo usuário à role de Cliente
+                    await UserManager.AddToRoleAsync(user.Id, "Cliente");
 
                     // Para obter mais informações sobre como habilitar a confirmação da conta e redefinição de senha, visite https://go.microsoft.com/fwlink/?LinkID=320771
                     // Enviar um email com este link
