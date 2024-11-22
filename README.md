@@ -57,14 +57,32 @@ Para executar o sistema, é necessário:
 
 O sistema estará disponível no navegador, onde você poderá registrar usuários, adicionar produtos ao carrinho, realizar pagamentos e visualizar o status dos pedidos.
 
+## Observação:
+
+#### 1. **Adicionar os arquivos do Roslyn ao projeto**
+   - Verifique se o projeto está configurado para usar o **Microsoft.CodeDom.Providers.DotNetCompilerPlatform** (provavelmente no arquivo `packages.config` ou no `Web.config`).
+   - Se o pacote estiver configurado, restaure-o e garanta que os arquivos do Roslyn sejam incluídos no projeto:
+     - Abra o **Package Manager Console** no Visual Studio e execute:
+       ```NuGet
+       Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -Reinstall
+       ```
+     - Isso deve restaurar os arquivos ausentes do Roslyn, incluindo o `csc.exe`.
+
 --
 Rotas do aplicativo:
+
 /Account (todos)
+
 /Carrinho (para fazer compras)
+
 /Pagamento (para pagar a compra)
+
 /CategoriasAdmin (para adm's do sistema criarem categorias)
+
 /PagamentosAdmin (para adm's do sistema confirmarem pagamentos)
+
 /PedidoesAdmin (para adm's do sistema verem pedidos)
+
 /ProdutoesAdmin (para adm's do sistema verem produtos)
 
 ATENÇÃO: Foi implementada a confirmação por email, e para isso, é necessário configurar o EMAIL.
